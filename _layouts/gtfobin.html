@@ -17,7 +17,7 @@ layout: common
     {%- assign gtfobin = return_gtfobin -%}
 
     {%- comment -%} render a message about being an alias {%- endcomment -%}
-    <p>This is an alias of <a href="{{ gtfobin.url | relative_url }}"><code>{{ return_gtfobin_name }}</code></a>.</p>
+    <p>这是 <a href="{{ gtfobin.url | relative_url }}"><code>{{ return_gtfobin_name }}</code></a> 的别名。</p>
 {%- else -%}
     {%- assign gtfobin = original_gtfobin -%}
 {%- endif -%}
@@ -28,7 +28,7 @@ layout: common
 {%- comment -%} global executable comment {%- endcomment -%}
 {%- if gtfobin.comment -%}
     <fieldset>
-        <legend>Comment</legend>
+        <legend>备注</legend>
         {{ gtfobin.comment | markdownify }}
     </fieldset>
 {%- endif -%}
@@ -54,7 +54,7 @@ layout: common
                 {%- comment -%} version {%- endcomment -%}
                 {%- if example.version -%}
                     <fieldset>
-                        <legend>Version requirements</legend>
+                        <legend>版本要求</legend>
                         {{ example.version | markdownify }}
                     </fieldset>
                 {%- endif -%}
@@ -62,7 +62,7 @@ layout: common
                 {%- comment -%} example comment {%- endcomment -%}
                 {%- if example.comment -%}
                     <fieldset>
-                        <legend>Comment</legend>
+                        <legend>备注</legend>
                         {{ example.comment | markdownify }}
                     </fieldset>
                 {%- endif -%}
@@ -90,13 +90,13 @@ layout: common
                             {%- case context_name -%}
                             {%- when "sudo" -%}
                                 <fieldset>
-                                    <legend>Remarks</legend>
+                                    <legend>说明</legend>
                                     {{ context.extra.environment | markdownify }}
                                 </fieldset>
                             {%- when "suid" -%}
                                 {%- if per_context_info.shell != nil -%}
                                     <fieldset>
-                                        <legend>Remarks</legend>
+                                        <legend>说明</legend>
                                         {%- if per_context_info.shell -%}
                                             {{ context.extra.shell[true] | markdownify }}
                                         {%- else -%}
@@ -117,7 +117,7 @@ layout: common
                             {%- comment -%} optional local comment {%- endcomment -%}
                             {%- if per_context_info.comment -%}
                                 <fieldset>
-                                    <legend>Comment</legend>
+                                    <legend>备注</legend>
                                     {{ per_context_info.comment | markdownify }}
                                 </fieldset>
                             {%- endif -%}
@@ -137,14 +137,14 @@ layout: common
                 {%- when "shell", "command", "reverse-shell", "bind-shell" -%}
                     {%- if example.blind -%}
                         <fieldset>
-                            <legend>Output</legend>
+                            <legend>输出</legend>
                             {{ function.extra.blind[true] | markdownify }}
                         </fieldset>
                     {%- endif -%}
                 {%- when "file-write", "file-read", "upload", "download" -%}
                     {%- if example.binary == false -%}
                         <fieldset>
-                            <legend>Remarks</legend>
+                            <legend>说明</legend>
                             {{ function.extra.binary[false] | markdownify }}
                         </fieldset>
                     {%- endif -%}
@@ -161,7 +161,7 @@ layout: common
                         {%- assign comment = known.comment | default: example.listener.comment -%}
                         {%- assign code = known.code | default: example.listener.code -%}
                         <fieldset>
-                            <legend>Listener</legend>
+                            <legend>监听端</legend>
                             {{ comment | markdownify }}
                             {%- if code -%}
                                 <pre><code>{{- code | escape | strip -}}</code></pre>
@@ -174,7 +174,7 @@ layout: common
                         {%- assign comment = known.comment | default: example.connector.comment -%}
                         {%- assign code = known.code | default: example.connector.code -%}
                         <fieldset>
-                            <legend>Connector</legend>
+                            <legend>连接端</legend>
                             {{ comment | markdownify }}
                             {%- if code -%}
                                 <pre><code>{{- code | escape | strip -}}</code></pre>
@@ -187,7 +187,7 @@ layout: common
                         {%- assign comment = known.comment | default: example.receiver.comment -%}
                         {%- assign code = known.code | default: example.receiver.code -%}
                         <fieldset>
-                            <legend>Receiver</legend>
+                            <legend>接收端</legend>
                             {{ comment | markdownify }}
                             {%- if code -%}
                                 <pre><code>{{- code | escape | strip -}}</code></pre>
@@ -200,7 +200,7 @@ layout: common
                         {%- assign comment = known.comment | default: example.sender.comment -%}
                         {%- assign code = known.code | default: example.sender.code -%}
                         <fieldset>
-                            <legend>Sender</legend>
+                            <legend>发送端</legend>
                             {{ comment | markdownify }}
                             {%- if code -%}
                                 <pre><code>{{- code | escape | strip -}}</code></pre>
@@ -209,7 +209,7 @@ layout: common
                     {%- endif -%}
                 {%- when "library-load" -%}
                     <fieldset>
-                        <legend>Payload</legend>
+                        <legend>载荷</legend>
                         {{ function.extra.payload | markdownify }}
                     </fieldset>
                 {%- endcase -%}
@@ -220,9 +220,9 @@ layout: common
                     {%- assign gtfobin = return_gtfobin -%}
 
                     <fieldset>
-                        <legend>Functions</legend>
+                        <legend>功能</legend>
                         <p>
-                            Inherits from <a href="{{ gtfobin.url | relative_url }}"><code>{{ example.from | escape }}</code></a>, thus possibly granting the following functions:
+                            继承自 <a href="{{ gtfobin.url | relative_url }}"><code>{{ example.from | escape }}</code></a>，因此可能获得以下功能：
                         </p>
                         <p>
                             {%- include function_list.html gtfobin=gtfobin functions=gtfobin.functions -%}
@@ -236,7 +236,7 @@ layout: common
 
 {%- comment -%} footer with some GitHub links about this executable {%- endcomment -%}
 <p class="small centered">
-  <a class="small-link" href="https://github.com/GTFOBins/GTFOBins.github.io/blob/master/_gtfobins/{{ gtfobin_name }}">Source</a>
+  <a class="small-link" href="https://github.com/GTFOBins/GTFOBins.github.io/blob/master/_gtfobins/{{ gtfobin_name }}">源码</a>
   |
-  <a class="small-link" href="https://github.com/GTFOBins/GTFOBins.github.io/commits/master/_gtfobins/{{ gtfobin_name }}">History</a>
+  <a class="small-link" href="https://github.com/GTFOBins/GTFOBins.github.io/commits/master/_gtfobins/{{ gtfobin_name }}">历史</a>
 </p>

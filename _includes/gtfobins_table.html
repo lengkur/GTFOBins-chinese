@@ -1,6 +1,6 @@
 <div id="search-toolbox">
     <fieldset>
-        <legend>Functions</legend>
+        <legend>功能</legend>
         <ul class="search-filters tag-list">
             {%- for function_item in site.data.functions -%}
                 {%- assign function_name = function_item[0] -%}
@@ -11,7 +11,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>Contexts</legend>
+        <legend>上下文</legend>
         <ul class="search-filters tag-list">
             {%- for context_item in site.data.contexts -%}
                 {%- assign context_name = context_item[0] -%}
@@ -22,8 +22,8 @@
     </fieldset>
 
     <fieldset>
-        <legend>Filter</legend>
-        <input type="text" spellcheck="false" placeholder="Search among {{ site.gtfobins | size }} executables: [<name>]/[<function>]/[<context>]"/>
+        <legend>筛选</legend>
+        <input type="text" spellcheck="false" placeholder="在 {{ site.gtfobins | size }} 个可执行文件中搜索：[名称]/[功能]/[上下文]"/>
     </fieldset>
 </div>
 
@@ -31,8 +31,8 @@
     <table id="gtfobin-table">
         <thead>
             <tr>
-                <th>Executable</th>
-                <th>Functions</th>
+                <th>可执行文件</th>
+                <th>功能</th>
             </tr>
         </thead>
         <tbody>
@@ -62,7 +62,7 @@
             {%- endfor -%}
         </tbody>
         <tfoot>
-            <tr><td colspan="2">No matches!</td></tr>
+            <tr><td colspan="2">没有匹配结果！</td></tr>
         </tfoot>
     </table>
 </div>
