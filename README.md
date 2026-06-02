@@ -6,6 +6,16 @@
 
 <a href="https://gtfobins.org"><img align="right" src="assets/logo.png" style="width: 100px" /></a>
 
-GTFOBins is a curated list of Unix-like executables that can be used to bypass local security restrictions in misconfigured systems.
+GTFOBins 是一个精心整理的类 Unix 可执行文件列表，可用于绕过配置错误的系统中的本地安全限制。
 
-Find the project at: [gtfobins.org](https://gtfobins.org)
+访问以下网址了解该项目：[gtfobins.org](https://gtfobins.org)
+
+
+
+#### 启动服务
+
+```bash
+docker build --no-cache ./ -t gtfobins
+make 
+```
+
