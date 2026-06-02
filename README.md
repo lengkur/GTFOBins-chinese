@@ -19,3 +19,6 @@ docker build --no-cache ./ -t gtfobins
 make 
 ```
 
+默认端口4000
+
+访问http://127.0.0.1:4000
